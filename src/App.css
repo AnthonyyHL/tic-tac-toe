@@ -5,6 +5,47 @@
   text-align: center;
 }
 
+.game {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 2em 0;
+}
+
+.cell {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  width: 90px;
+  height: 90px;
+  /* padding: 0.6em 1.2em; */
+  font-size: 30px;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #31272589;
+  /* 66514D */
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+.cell:hover {
+  border-color: #e7cfc3;
+}
+/* .cell:focus,
+.cell:focus-visible {
+  outline: 2px auto -webkit-focus-ring-color;
+} */
+
+.turns .cell {
+  background-color: #1C1817;
+  width: 75px;
+  height: 75px;
+  padding: 10px;
+  font-size: 1.5em;
+}
+/* .turns .cell */
+.turns .is-selected {
+  background-color: #646cff;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;
