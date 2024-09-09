@@ -32,15 +32,18 @@ function App() {
   const [turn, setTurn] = useState(TURNS.X)
 
   const updateCell = (index) => {
-    const newBoard = [...board]
-    newBoard[index] = turn
-    setBoard(newBoard)
-
-    const newTurn = turn === TURNS.X ? TURNS.O : TURNS.X
-    setTurn(newTurn)
+    if (board[index] === null) {
+      const newBoard = [...board]
+      newBoard[index] = turn
+      setBoard(newBoard)
+  
+      const newTurn = turn === TURNS.X ? TURNS.O : TURNS.X
+      setTurn(newTurn)
+    }
   }
 
   return (
+    console.log('render'),
     <>
       <h1>Tic Tac Toe</h1>
       <section className="game">
