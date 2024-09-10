@@ -2,11 +2,9 @@ import { useState } from 'react'
 import './App.css'
 
 const TURNS = {
-  X: '✖',
-  O: '◯',
+  X: <img src="src/assets/cross.png" alt="X" />,
+  O: <img src="src/assets/circle.png" alt="X" />
 }
-
-const BOARD = Array(9).fill(null)
 
 const Cell = ({ children, isSelected, updateCell, index }) => {
   const className = `cell ${isSelected ? 'is-selected' : ''}`
@@ -52,10 +50,13 @@ function App() {
         boardToCheck[i + 2] === boardToCheck[i + 4] &&
         boardToCheck[i + 2] === boardToCheck[i + 6]
       ) { return true }
-      return null
     }
+    return null
   }
 
+  const checkDraw = (boardToCheck) => {
+    return !boardToCheck.includes(null)
+  }
 
   const updateCell = (index) => {
     if (board[index] === null && !winner) {
@@ -68,10 +69,17 @@ function App() {
 
       const newWinner = checkWinner(newBoard)
       if (newWinner) {
-        setWinner(newWinner)
+        setWinner(newWinner) // los estados son ASÍNCRONOS
+      } else if (checkDraw(newBoard)) {
+        setWinner(false)
       }
-
     }
+  }
+
+  const resetGame = () => {
+    setBoard(Array(9).fill(null))
+    setTurn(TURNS.X)
+    setWinner(null)
   }
 
   return (
@@ -79,21 +87,49 @@ function App() {
       <h1>Tic Tac Toe</h1>
       <section className="game">
         {
-          BOARD.map((cell, index) => (
+          board.map((cell, index) => (
             <Cell
               key={index}
               index={index}
               updateCell={updateCell}
             >
-              {board[index]}
+              {cell}
             </Cell>
           ))
         }
       </section>
+
       <section className="turns">
         <Cell isSelected={turn === TURNS.X}>{TURNS.X}</Cell>
         <Cell isSelected={turn === TURNS.O}>{TURNS.O}</Cell>
       </section>
+      
+      {
+        winner !== null && (
+          <section className="winner-container">
+            <div className="winner">
+
+              <header className="game-result">
+                {
+                  winner === true ? (
+                    <p className="alert-container win">
+                      <Cell>{ turn !== TURNS.X ? TURNS.X : TURNS.O }</Cell>
+                      Wins
+                    </p>
+                  ) : (
+                    <p className="alert-container draw">Draw</p>
+                  )
+                }
+              </header>
+              <footer>
+                <button className="play-again-btn" onClick={resetGame}>
+                  Play Again
+                </button>
+              </footer>
+            </div>
+          </section>
+        )
+      }
     </>
   )
 }

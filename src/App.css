@@ -5,6 +5,13 @@
   text-align: center;
 }
 
+.game img,
+.winner-container img,
+.turns img {
+  width: 2em;
+  height: auto;
+}
+
 .game {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -12,72 +19,76 @@
   margin: 2em 0;
 }
 
-.cell {
-  border-radius: 8px;
+.cell,
+.winner button {
   border: 1px solid transparent;
-  width: 90px;
-  height: 90px;
-  /* padding: 0.6em 1.2em; */
-  font-size: 30px;
-  font-weight: 500;
-  font-family: inherit;
   background-color: #31272589;
-  /* 66514D */
-  cursor: pointer;
   transition: border-color 0.25s;
 }
-.cell:hover {
-  border-color: #e7cfc3;
-}
-/* .cell:focus,
-.cell:focus-visible {
-  outline: 2px auto -webkit-focus-ring-color;
-} */
 
-.turns .cell {
+.cell {
+  border-radius: 8px;
+  width: 90px;
+  height: 90px;
+  padding: 10px;
+  cursor: pointer;
+}
+.game .cell:hover,
+.winner .play-again-btn:hover {
+  border-color: #E3D0B0;
+}
+
+.turns .cell,
+.game-result .cell {
   background-color: #1C1817;
   width: 75px;
   height: 75px;
-  padding: 10px;
-  font-size: 1.5em;
+  cursor: default;
 }
-/* .turns .cell */
+
 .turns .is-selected {
-  background-color: #646cff;
+  border: 2px solid #7db430;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.winner-container {
+  position: absolute;
+  display: grid;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  place-items: center;
+  background-color: rgba(0, 0, 0, 0.75);
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.winner {
+  width: 350px;
+  height: 50vh;
+  background-color: #1C1817;
+  border-radius: 2em;
+  align-content: center;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.game-result .alert-container {
+  display: flex;
+  font-size: 2em;
+  font-weight: 500;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 0;
 }
 
-.card {
-  padding: 2em;
+.winner .play-again-btn {
+  color: #ffffff;
+  border-radius: 0.75em;
+  padding: 0.5em 1em;
+  font-size: 20px;
+  font-weight: 500;
+  cursor: pointer;
 }
 
-.read-the-docs {
-  color: #888;
+.winner .play-again-btn:focus {
+  background-color: #e6ded0;
+  color: #1C1817;
+  font-weight: 700;
 }
