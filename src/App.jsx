@@ -1,5 +1,4 @@
-/* eslint-disable react/react-in-jsx-scope */
-import { useState } from 'react'
+import React, { useState } from 'react'
 import confetti from 'canvas-confetti'
 
 import { checkWinner, checkDraw } from './logic/winnerChecker'

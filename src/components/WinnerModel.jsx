@@ -1,4 +1,4 @@
-/* eslint-disable react/react-in-jsx-scope */
+import React from 'react';
 import { Cell } from './Cell'
 import { TURNS, TURNS_ICONS } from '../constants'
 
