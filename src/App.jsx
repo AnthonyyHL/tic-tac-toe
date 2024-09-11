@@ -1,62 +1,15 @@
 import { useState } from 'react'
+
+import { checkWinner, checkDraw } from './logic/winnerChecker'
+import { winnerModel } from './logic/winnerModel'
+import { Cell } from './components/Cell'
+import { TURNS } from './constants'
 import './App.css'
 
-const TURNS = {
-  X: <img src="src/assets/cross.png" alt="X" />,
-  O: <img src="src/assets/circle.png" alt="X" />
-}
-
-const Cell = ({ children, isSelected, updateCell, index }) => {
-  const className = `cell ${isSelected ? 'is-selected' : ''}`
-
-  const handleClick = () => {
-    updateCell(index)
-  }
-
-  return (
-    <button className={className} onClick={ handleClick }>
-      {children}
-    </button>
-  )
-}
-
-
 function App() {
-  const [board, setBoard] = useState(
-    Array(9).fill(null)
-  )
+  const [board, setBoard] = useState(Array(9).fill(null))
   const [turn, setTurn] = useState(TURNS.X)
   const [winner, setWinner] = useState(null) // null: no winner | false: draw | true: winner
-
-  const checkWinner = (boardToCheck) => {
-    for (let i = 0; i < 3; i++) {
-      if (
-        boardToCheck[i] !== null &&
-        boardToCheck[i] === boardToCheck[i + 3] &&
-        boardToCheck[i] === boardToCheck[i + 6]
-      ) { return true }
-      else if (
-        boardToCheck[i * 3] !== null &&
-        boardToCheck[i * 3] === boardToCheck[i * 3 + 1] &&
-        boardToCheck[i * 3] === boardToCheck[i * 3 + 2]
-      ) { return true }
-      else if (
-        boardToCheck[i] !== null &&
-        boardToCheck[i] === boardToCheck[i + 4] &&
-        boardToCheck[i] === boardToCheck[i + 8]
-      ) { return true }
-      else if (
-        boardToCheck[i + 2] !== null &&
-        boardToCheck[i + 2] === boardToCheck[i + 4] &&
-        boardToCheck[i + 2] === boardToCheck[i + 6]
-      ) { return true }
-    }
-    return null
-  }
-
-  const checkDraw = (boardToCheck) => {
-    return !boardToCheck.includes(null)
-  }
 
   const updateCell = (index) => {
     if (board[index] === null && !winner) {
@@ -104,32 +57,8 @@ function App() {
         <Cell isSelected={turn === TURNS.O}>{TURNS.O}</Cell>
       </section>
       
-      {
-        winner !== null && (
-          <section className="winner-container">
-            <div className="winner">
-
-              <header className="game-result">
-                {
-                  winner === true ? (
-                    <p className="alert-container win">
-                      <Cell>{ turn !== TURNS.X ? TURNS.X : TURNS.O }</Cell>
-                      Wins
-                    </p>
-                  ) : (
-                    <p className="alert-container draw">Draw</p>
-                  )
-                }
-              </header>
-              <footer>
-                <button className="play-again-btn" onClick={resetGame}>
-                  Play Again
-                </button>
-              </footer>
-            </div>
-          </section>
-        )
-      }
+      { winnerModel(winner, turn, resetGame) }
+      
     </>
   )
 }
