@@ -6,6 +6,7 @@ import { winnerModel } from './components/WinnerModel'
 import { Cell } from './components/Cell'
 import { TURNS, TURNS_ICONS } from './constants'
 import './App.css'
+import { useEffect } from 'react'
 
 function App() {
   const [board, setBoard] = useState(() => {
@@ -27,10 +28,6 @@ function App() {
       const newTurn = turn === TURNS.X ? TURNS.O : TURNS.X
       setTurn(newTurn)
 
-      // Save game
-      window.localStorage.setItem('board', JSON.stringify(newBoard))
-      window.localStorage.setItem('turn', newTurn)
-
       const newWinner = checkWinner(newBoard)
       if (newWinner) {
         setWinner(newWinner) // los estados son ASÍNCRONOS
@@ -47,6 +44,11 @@ function App() {
       }
     }
   }
+
+  useEffect(() => {
+    window.localStorage.setItem('board', JSON.stringify(board))
+    window.localStorage.setItem('turn', turn)
+  }, [board, turn])
 
   const resetGame = () => {
     setBoard(Array(9).fill(null))
