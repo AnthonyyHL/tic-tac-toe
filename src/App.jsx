@@ -24,21 +24,19 @@ function App() {
       const newBoard = [...board]
       newBoard[index] = turn
       setBoard(newBoard)
-  
+
       const newTurn = turn === TURNS.X ? TURNS.O : TURNS.X
       setTurn(newTurn)
 
       const newWinner = checkWinner(newBoard)
       if (newWinner) {
         setWinner(newWinner) // los estados son ASÍNCRONOS
-        confetti(
-          {
-            zIndex: 100,
-            particleCount: 100,
-            spread: 70,
-            origin: { y: 0.6 }
-          }
-        )
+        confetti({
+          zIndex: 100,
+          particleCount: 100,
+          spread: 70,
+          origin: { y: 0.6 },
+        })
       } else if (checkDraw(newBoard)) {
         setWinner(false)
       }
@@ -63,30 +61,23 @@ function App() {
     <>
       <h1>Tic Tac Toe</h1>
       <section className="game">
-        {
-          board.map((cell, index) => (
-            <Cell
-              key={index}
-              index={index}
-              updateCell={updateCell}
-            >
-              {
-                cell === TURNS.X ?
-                TURNS_ICONS.X : cell === TURNS.O ?
-                TURNS_ICONS.O : null
-              }
-            </Cell>
-          ))
-        }
+        {board.map((cell, index) => (
+          <Cell key={index} index={index} updateCell={updateCell}>
+            {cell === TURNS.X
+              ? TURNS_ICONS.X
+              : cell === TURNS.O
+                ? TURNS_ICONS.O
+                : null}
+          </Cell>
+        ))}
       </section>
 
       <section className="turns">
         <Cell isSelected={turn === TURNS.X}>{TURNS_ICONS.X}</Cell>
         <Cell isSelected={turn === TURNS.O}>{TURNS_ICONS.O}</Cell>
       </section>
-      
-      { winnerModel(winner, turn, resetGame) }
 
+      {winnerModel(winner, turn, resetGame)}
     </>
   )
 }

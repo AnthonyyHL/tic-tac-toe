@@ -22,7 +22,7 @@
 .cell,
 .winner button {
   border: 1px solid transparent;
-  background-color: #31272589;
+  background-color: rgba(49, 39, 37, 0.54);
   transition: border-color 0.25s;
 }
 
@@ -35,19 +35,19 @@
 }
 .game .cell:hover,
 .winner .play-again-btn:hover {
-  border-color: #E3D0B0;
+  border-color: rgb(227, 208, 176);
 }
 
 .turns .cell,
 .game-result .cell {
-  background-color: #1C1817;
+  background-color: rgb(28, 24, 23);
   width: 75px;
   height: 75px;
   cursor: default;
 }
 
 .turns .is-selected {
-  border: 2px solid #7db430;
+  border: 2px solid rgb(125, 180, 48);
 }
 
 .winner-container {
@@ -64,7 +64,7 @@
 .winner {
   width: 350px;
   height: 50vh;
-  background-color: #1C1817;
+  background-color: rgb(28, 24, 23);
   border-radius: 2em;
   align-content: center;
   z-index: 1000;
@@ -80,7 +80,7 @@
 }
 
 .winner .play-again-btn {
-  color: #ffffff;
+  color: rgb(255, 255, 255);
   border-radius: 0.75em;
   padding: 0.5em 1em;
   font-size: 20px;
@@ -89,7 +89,7 @@
 }
 
 .winner .play-again-btn:focus {
-  background-color: #e6ded0;
-  color: #1C1817;
+  background-color: rgb(230, 222, 208);
+  color: rgb(28, 24, 23);
   font-weight: 700;
 }
