@@ -67,6 +67,7 @@
   background-color: #1C1817;
   border-radius: 2em;
   align-content: center;
+  z-index: 1000;
 }
 
 .game-result .alert-container {

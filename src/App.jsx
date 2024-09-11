@@ -1,14 +1,21 @@
 import { useState } from 'react'
+import confetti from "canvas-confetti"
 
 import { checkWinner, checkDraw } from './logic/winnerChecker'
-import { winnerModel } from './logic/winnerModel'
+import { winnerModel } from './components/WinnerModel'
 import { Cell } from './components/Cell'
-import { TURNS } from './constants'
+import { TURNS, TURNS_ICONS } from './constants'
 import './App.css'
 
 function App() {
-  const [board, setBoard] = useState(Array(9).fill(null))
-  const [turn, setTurn] = useState(TURNS.X)
+  const [board, setBoard] = useState(() => {
+    const boardFromStorage = window.localStorage.getItem('board')
+    return boardFromStorage ? JSON.parse(boardFromStorage) : Array(9).fill(null)
+  })
+  const [turn, setTurn] = useState(() => {
+    const turnFromStorage = window.localStorage.getItem('turn')
+    return turnFromStorage ?? TURNS.X
+  })
   const [winner, setWinner] = useState(null) // null: no winner | false: draw | true: winner
 
   const updateCell = (index) => {
@@ -20,9 +27,21 @@ function App() {
       const newTurn = turn === TURNS.X ? TURNS.O : TURNS.X
       setTurn(newTurn)
 
+      // Save game
+      window.localStorage.setItem('board', JSON.stringify(newBoard))
+      window.localStorage.setItem('turn', newTurn)
+
       const newWinner = checkWinner(newBoard)
       if (newWinner) {
         setWinner(newWinner) // los estados son ASÍNCRONOS
+        confetti(
+          {
+            zIndex: 100,
+            particleCount: 100,
+            spread: 70,
+            origin: { y: 0.6 }
+          }
+        )
       } else if (checkDraw(newBoard)) {
         setWinner(false)
       }
@@ -33,6 +52,9 @@ function App() {
     setBoard(Array(9).fill(null))
     setTurn(TURNS.X)
     setWinner(null)
+
+    window.localStorage.removeItem('board')
+    window.localStorage.removeItem('turn')
   }
 
   return (
@@ -46,19 +68,23 @@ function App() {
               index={index}
               updateCell={updateCell}
             >
-              {cell}
+              {
+                cell === TURNS.X ?
+                TURNS_ICONS.X : cell === TURNS.O ?
+                TURNS_ICONS.O : null
+              }
             </Cell>
           ))
         }
       </section>
 
       <section className="turns">
-        <Cell isSelected={turn === TURNS.X}>{TURNS.X}</Cell>
-        <Cell isSelected={turn === TURNS.O}>{TURNS.O}</Cell>
+        <Cell isSelected={turn === TURNS.X}>{TURNS_ICONS.X}</Cell>
+        <Cell isSelected={turn === TURNS.O}>{TURNS_ICONS.O}</Cell>
       </section>
       
       { winnerModel(winner, turn, resetGame) }
-      
+
     </>
   )
 }
