@@ -43,16 +43,22 @@ function UsersInput() {
 
   return (
     <section className="player-input-container">
-      <PlayerInputCard
-        player={player1}
-        icon={TURNS_ICONS.X}
-        handlePlayerChange={handlePlayerChange}
-      />
-      <PlayerInputCard
-        player={player2}
-        icon={TURNS_ICONS.O}
-        handlePlayerChange={handlePlayerChange}
-      />
+      <label htmlFor="player-input-title" className="player-input-title">
+        TIC TAC TOE
+      </label>
+      <section className="player-input-cards">
+        <PlayerInputCard
+          player={player1}
+          icon={TURNS_ICONS.X}
+          handlePlayerChange={handlePlayerChange}
+        />
+        <PlayerInputCard
+          player={player2}
+          icon={TURNS_ICONS.O}
+          handlePlayerChange={handlePlayerChange}
+        />
+      </section>
+      <button className="start-game-btn">Start Game</button>
     </section>
   )
 }
