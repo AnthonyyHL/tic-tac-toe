@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import confetti from 'canvas-confetti'
 
-import { checkWinner, checkDraw } from './logic/winnerChecker'
-import { winnerModel } from './components/WinnerModel'
-import { Cell } from './components/Cell'
-import { TURNS, TURNS_ICONS } from './constants'
+import { checkWinner, checkDraw } from '../logic/winnerChecker'
+import { winnerModel } from '../components/WinnerModel'
+import { Cell } from '../components/Cell'
+import { TURNS, TURNS_ICONS } from '../constants'
 import './App.css'
 import { useEffect } from 'react'
 
@@ -74,6 +74,7 @@ function App() {
 
       <section className="turns">
         <Cell isSelected={turn === TURNS.X}>{TURNS_ICONS.X}</Cell>
+        {/* Acceder a los nombres de los playes a través de localStorage */}
         <Cell isSelected={turn === TURNS.O}>{TURNS_ICONS.O}</Cell>
       </section>
 

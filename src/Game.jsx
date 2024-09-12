@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import App from './App.jsx'
+import App from './app/App.jsx'
 import UsersInput from './user_input/UsersInput.jsx'
 
 import './index.css'
