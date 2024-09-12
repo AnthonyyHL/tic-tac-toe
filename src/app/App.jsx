@@ -8,6 +8,15 @@ import { TURNS, TURNS_ICONS } from '../constants'
 import './App.css'
 import { useEffect } from 'react'
 
+const GameStatCard = ({ turn, wins }) => {
+  return (
+    <div className="game-stat">
+      <Cell>{turn}</Cell>
+      <span>{`${wins} Wins`}</span>
+    </div>
+  )
+}
+
 function App() {
   const [board, setBoard] = useState(() => {
     const boardFromStorage = window.localStorage.getItem('board')
@@ -17,7 +26,25 @@ function App() {
     const turnFromStorage = window.localStorage.getItem('turn')
     return turnFromStorage ?? TURNS.X
   })
+  const [gameStats, setGameStats] = useState(() => {
+    const gameStatsFromStorage = window.localStorage.getItem('gameStats')
+    return gameStatsFromStorage
+      ? JSON.parse(gameStatsFromStorage)
+      : { x: 0, o: 0, draw: 0 }
+  })
   const [winner, setWinner] = useState(null) // null: no winner | false: draw | true: winner
+
+  const updateStats = (winner) => {
+    if (winner) {
+      const newGameStats =
+        turn === TURNS.X
+          ? { ...gameStats, x: gameStats.x + 1 }
+          : { ...gameStats, o: gameStats.o + 1 }
+      setGameStats(newGameStats)
+    } else {
+      setGameStats({ ...gameStats, draw: gameStats.draw + 1 })
+    }
+  }
 
   const updateCell = (index) => {
     if (board[index] === null && !winner) {
@@ -40,6 +67,7 @@ function App() {
       } else if (checkDraw(newBoard)) {
         setWinner(false)
       }
+      updateStats(newWinner)
     }
   }
 
@@ -47,6 +75,10 @@ function App() {
     window.localStorage.setItem('board', JSON.stringify(board))
     window.localStorage.setItem('turn', turn)
   }, [board, turn])
+
+  useEffect(() => {
+    window.localStorage.setItem('gameStats', JSON.stringify(gameStats))
+  }, [gameStats])
 
   const resetGame = () => {
     setBoard(Array(9).fill(null))
@@ -59,7 +91,12 @@ function App() {
 
   return (
     <>
-      <h1>Tic Tac Toe</h1>
+      <header className="game-winning-history">
+        <GameStatCard turn={TURNS_ICONS.X} wins={gameStats.x} />
+        <GameStatCard turn={TURNS_ICONS.O} wins={gameStats.o} />
+        <GameStatCard turn="Draw" wins={gameStats.draw} />
+      </header>
+
       <section className="game">
         {board.map((cell, index) => (
           <Cell key={index} index={index} updateCell={updateCell}>
@@ -74,7 +111,6 @@ function App() {
 
       <section className="turns">
         <Cell isSelected={turn === TURNS.X}>{TURNS_ICONS.X}</Cell>
-        {/* Acceder a los nombres de los playes a través de localStorage */}
         <Cell isSelected={turn === TURNS.O}>{TURNS_ICONS.O}</Cell>
       </section>
 

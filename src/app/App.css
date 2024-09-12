@@ -7,8 +7,9 @@
 
 .game img,
 .winner-container img,
-.turns img {
-  width: 2em;
+.turns img,
+.game-stat img {
+  width: 3em;
   height: auto;
 }
 
@@ -39,14 +40,19 @@
 }
 
 .turns .cell,
-.game-result .cell {
+.game-result .cell,
+.game-winning-history .cell {
   background-color: rgb(28, 24, 23);
   width: 75px;
   height: 75px;
   cursor: default;
 }
+.game-winning-history {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
 
-.turns .is-selected {
+.game-winning-history .turns .is-selected {
   border: 2px solid rgb(125, 180, 48);
 }
 
@@ -70,7 +76,8 @@
   z-index: 1000;
 }
 
-.game-result .alert-container {
+.game-result .alert-container,
+.game-winning-history .game-stat {
   display: flex;
   font-size: 2em;
   font-weight: 500;
