@@ -1,33 +1,11 @@
 import React, { useState } from 'react'
 
-import { Cell } from '../components/Cell'
 import { TURNS_ICONS } from '../constants'
+import PlayerInputCard from '../components/PlayerInputCard'
 
 import './UsersInput.css'
 
-const PlayerInputCard = ({ player, icon, handlePlayerChange }) => {
-  const playerLabelClassName = icon === TURNS_ICONS.X ? 'player-1' : 'player-2'
-  return (
-    <section className="player-input-card">
-      <label
-        htmlFor={playerLabelClassName}
-        className={`player ${playerLabelClassName}`}
-      >
-        {playerLabelClassName.replace('-', ' ').toLocaleUpperCase()}
-      </label>
-      <Cell>{icon}</Cell>
-      <input
-        id={player}
-        className="player-input"
-        type="text"
-        defaultValue={player}
-        onBlur={(e) => handlePlayerChange(e, icon)}
-      />
-    </section>
-  )
-}
-
-function UsersInput() {
+function UsersInput({ startGame }) {
   const [player1, setPlayer1] = useState('')
   const [player2, setPlayer2] = useState('')
 
@@ -37,8 +15,11 @@ function UsersInput() {
       alert('Player 2 name already exists')
       return
     }
-
     icon === TURNS_ICONS.X ? setPlayer1(value) : setPlayer2(value)
+  }
+
+  const handleStartGame = () => {
+    startGame(true)
   }
 
   return (
@@ -58,7 +39,9 @@ function UsersInput() {
           handlePlayerChange={handlePlayerChange}
         />
       </section>
-      <button className="start-game-btn">Start Game</button>
+      <button className="start-game-btn" onClick={handleStartGame}>
+        Start Game
+      </button>
     </section>
   )
 }
