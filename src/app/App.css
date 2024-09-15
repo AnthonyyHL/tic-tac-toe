@@ -51,8 +51,11 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
 }
+.game-winning-history .win-counter-text {
+  font-size: 0.6em;
+}
 
-.game-winning-history .turns .is-selected {
+.turns .is-selected {
   border: 2px solid rgb(125, 180, 48);
 }
 

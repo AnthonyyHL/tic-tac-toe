@@ -12,7 +12,7 @@ const GameStatCard = ({ turn, wins }) => {
   return (
     <div className="game-stat">
       <Cell>{turn}</Cell>
-      <span>{`${wins} Wins`}</span>
+      <span className="win-counter-text">{`${wins} Wins`}</span>
     </div>
   )
 }
@@ -64,10 +64,11 @@ function App() {
           spread: 70,
           origin: { y: 0.6 },
         })
+        updateStats(newWinner)
       } else if (checkDraw(newBoard)) {
         setWinner(false)
+        updateStats(false)
       }
-      updateStats(newWinner)
     }
   }
 
@@ -94,7 +95,7 @@ function App() {
       <header className="game-winning-history">
         <GameStatCard turn={TURNS_ICONS.X} wins={gameStats.x} />
         <GameStatCard turn={TURNS_ICONS.O} wins={gameStats.o} />
-        <GameStatCard turn="Draw" wins={gameStats.draw} />
+        <GameStatCard turn={TURNS_ICONS.DRAW} wins={gameStats.draw} />
       </header>
 
       <section className="game">
