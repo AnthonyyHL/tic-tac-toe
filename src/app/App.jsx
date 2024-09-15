@@ -17,7 +17,7 @@ const GameStatCard = ({ turn, wins }) => {
   )
 }
 
-function App() {
+function App({ finishGame }) {
   const [board, setBoard] = useState(() => {
     const boardFromStorage = window.localStorage.getItem('board')
     return boardFromStorage ? JSON.parse(boardFromStorage) : Array(9).fill(null)
@@ -92,10 +92,20 @@ function App() {
 
   return (
     <>
-      <header className="game-winning-history">
-        <GameStatCard turn={TURNS_ICONS.X} wins={gameStats.x} />
-        <GameStatCard turn={TURNS_ICONS.O} wins={gameStats.o} />
-        <GameStatCard turn={TURNS_ICONS.DRAW} wins={gameStats.draw} />
+      <header>
+        <div className="exit-btn">
+          <img
+            src="src/assets/return_icon.svg"
+            alt="Return to main page"
+            className="exit-icon"
+            onClick={finishGame}
+          />
+        </div>
+        <div className="game-winning-history">
+          <GameStatCard turn={TURNS_ICONS.X} wins={gameStats.x} />
+          <GameStatCard turn={TURNS_ICONS.O} wins={gameStats.o} />
+          <GameStatCard turn={TURNS_ICONS.DRAW} wins={gameStats.draw} />
+        </div>
       </header>
 
       <section className="game">
@@ -110,10 +120,10 @@ function App() {
         ))}
       </section>
 
-      <section className="turns">
+      <footer className="turns">
         <Cell isSelected={turn === TURNS.X}>{TURNS_ICONS.X}</Cell>
         <Cell isSelected={turn === TURNS.O}>{TURNS_ICONS.O}</Cell>
-      </section>
+      </footer>
 
       {winnerModel(winner, turn, resetGame)}
     </>
