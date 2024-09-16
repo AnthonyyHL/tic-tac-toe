@@ -1,0 +1,44 @@
+.winner-container,
+.return-main-menu-alert-container {
+  position: absolute;
+  display: grid;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  place-items: center;
+  background-color: rgba(0, 0, 0, 0.75);
+}
+
+.winner,
+.return-main-menu-alert {
+  width: 350px;
+  height: 50vh;
+  background-color: rgb(28, 24, 23);
+  border-radius: 2em;
+  align-content: center;
+  z-index: 1000;
+}
+
+.winner .play-again-btn,
+.return-main-menu-alert .return-alert-btn {
+  color: rgb(255, 255, 255);
+  background-color: rgba(49, 39, 37, 0.54);
+  border: 1px solid transparent;
+  border-radius: 0.75em;
+  padding: 0.5em 1em;
+  font-size: 20px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+.winner .play-again-btn:hover,
+.return-main-menu-alert .return-alert-btn:hover {
+  border-color: rgb(227, 208, 176);
+}
+.winner .play-again-btn:focus,
+.return-main-menu-alert .return-alert-btn:focus {
+  background-color: rgb(230, 222, 208);
+  color: rgb(28, 24, 23);
+  font-weight: 700;
+}

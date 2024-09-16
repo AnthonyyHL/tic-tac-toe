@@ -1,12 +1,48 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import confetti from 'canvas-confetti'
 
 import { checkWinner, checkDraw } from '../logic/winnerChecker'
 import { winnerModel } from '../components/WinnerModel'
 import { Cell } from '../components/Cell'
 import { TURNS, TURNS_ICONS } from '../constants'
+
 import './App.css'
-import { useEffect } from 'react'
+import '../general_styles/alertModel.css'
+import '../returnMainModelAlert.css'
+
+function ReturnMainMenuModel(
+  isReturnAlertVisible,
+  finishGame,
+  setIsReturnAlertVisible,
+) {
+  if (!isReturnAlertVisible) {
+    console.log('return alert not visible2')
+    return null
+  }
+  console.log('return alert visible')
+  return (
+    <section className="return-main-menu-alert-container">
+      <div className="return-main-menu-alert">
+        <header className="return-main-menu-alert-header">
+          <h2>Return to main menu</h2>
+        </header>
+        <footer>
+          <button className="return-alert-btn yes" onClick={finishGame}>
+            Yes
+          </button>
+          <button
+            className="return-alert-btn cancel"
+            onClick={() => {
+              setIsReturnAlertVisible(false)
+            }}
+          >
+            Cancel
+          </button>
+        </footer>
+      </div>
+    </section>
+  )
+}
 
 const GameStatCard = ({ turn, wins }) => {
   return (
@@ -33,6 +69,7 @@ function App({ finishGame }) {
       : { x: 0, o: 0, draw: 0 }
   })
   const [winner, setWinner] = useState(null) // null: no winner | false: draw | true: winner
+  const [isReturnAlertVisible, setIsReturnAlertVisible] = useState(false)
 
   const updateStats = (winner) => {
     if (winner) {
@@ -98,9 +135,18 @@ function App({ finishGame }) {
             src="src/assets/return_icon.svg"
             alt="Return to main page"
             className="exit-icon"
-            onClick={finishGame}
+            onClick={() => {
+              setIsReturnAlertVisible(true)
+            }}
           />
         </div>
+
+        {ReturnMainMenuModel(
+          isReturnAlertVisible,
+          finishGame,
+          setIsReturnAlertVisible,
+        )}
+
         <div className="game-winning-history">
           <GameStatCard turn={TURNS_ICONS.X} wins={gameStats.x} />
           <GameStatCard turn={TURNS_ICONS.O} wins={gameStats.o} />

@@ -1,0 +1,9 @@
+.return-main-menu-alert {
+  display: grid;
+  gap: 2em;
+}
+
+.return-main-menu-alert footer {
+  display: flex;
+  justify-content: space-evenly;
+}

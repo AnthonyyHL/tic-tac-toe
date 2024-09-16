@@ -2,6 +2,8 @@ import React from 'react'
 import { Cell } from './Cell'
 import { TURNS, TURNS_ICONS } from '../constants'
 
+import '../general_styles/alertModel.css'
+
 export function winnerModel(winner, turn, resetGame) {
   if (winner === null) return null
 

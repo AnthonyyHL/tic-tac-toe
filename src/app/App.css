@@ -40,22 +40,17 @@
   margin: 2em 0;
 }
 
-.cell,
-.winner .play-again-btn {
-  border: 1px solid transparent;
-  background-color: rgba(49, 39, 37, 0.54);
-  transition: border-color 0.25s;
-}
-
 .cell {
+  background-color: rgba(49, 39, 37, 0.54);
+  border: 1px solid transparent;
   border-radius: 8px;
   width: 90px;
   height: 90px;
   padding: 10px;
   cursor: pointer;
+  transition: border-color 0.25s;
 }
-.game .cell:hover,
-.winner .play-again-btn:hover {
+.game .cell:hover {
   border-color: rgb(227, 208, 176);
 }
 
@@ -79,26 +74,6 @@
   border: 2px solid rgb(125, 180, 48);
 }
 
-.winner-container {
-  position: absolute;
-  display: grid;
-  height: 100vh;
-  width: 100vw;
-  top: 0;
-  left: 0;
-  place-items: center;
-  background-color: rgba(0, 0, 0, 0.75);
-}
-
-.winner {
-  width: 350px;
-  height: 50vh;
-  background-color: rgb(28, 24, 23);
-  border-radius: 2em;
-  align-content: center;
-  z-index: 1000;
-}
-
 .game-result .alert-container,
 .game-winning-history .game-stat {
   display: flex;
@@ -107,19 +82,4 @@
   flex-direction: column;
   align-items: center;
   margin-top: 0;
-}
-
-.winner .play-again-btn {
-  color: rgb(255, 255, 255);
-  border-radius: 0.75em;
-  padding: 0.5em 1em;
-  font-size: 20px;
-  font-weight: 500;
-  cursor: pointer;
-}
-
-.winner .play-again-btn:focus {
-  background-color: rgb(230, 222, 208);
-  color: rgb(28, 24, 23);
-  font-weight: 700;
 }
