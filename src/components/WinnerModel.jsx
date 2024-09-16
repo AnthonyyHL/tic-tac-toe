@@ -20,7 +20,13 @@ export function winnerModel(winner, turn, resetGame) {
                     ? TURNS_ICONS.O
                     : null}
               </Cell>
-              Wins
+              {`${
+                turn !== TURNS.X
+                  ? window.localStorage.getItem('player1')
+                  : turn !== TURNS.O
+                    ? window.localStorage.getItem('player2')
+                    : null
+              } Wins`}
             </p>
           ) : (
             <p className="alert-container draw">Draw</p>

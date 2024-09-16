@@ -22,9 +22,6 @@ function UsersInput({ startGame }) {
       alert('Player 2 name already exists')
       return
     }
-    if (value === null) {
-      icon === TURNS_ICONS.X ? setPlayer1('Player 1') : setPlayer2('Player 2')
-    }
     icon === TURNS_ICONS.X ? setPlayer1(value) : setPlayer2(value)
   }
 
