@@ -8,7 +8,7 @@ import './index.css'
 function Game() {
   const [gameState, setGameState] = useState(() => {
     const gameStateInLocalStorage = window.localStorage.getItem('gameState')
-    return gameStateInLocalStorage ? gameStateInLocalStorage : false
+    return gameStateInLocalStorage || false
   }) // false: game not started | true: game started
 
   const startGame = (isGameStarted) => {

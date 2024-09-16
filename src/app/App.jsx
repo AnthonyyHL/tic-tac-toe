@@ -15,11 +15,8 @@ function ReturnMainMenuModel(
   finishGame,
   setIsReturnAlertVisible,
 ) {
-  if (!isReturnAlertVisible) {
-    console.log('return alert not visible2')
-    return null
-  }
-  console.log('return alert visible')
+  if (!isReturnAlertVisible) return null
+
   return (
     <section className="return-main-menu-alert-container">
       <div className="return-main-menu-alert">
