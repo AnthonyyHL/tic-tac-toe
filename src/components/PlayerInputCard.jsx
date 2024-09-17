@@ -18,6 +18,7 @@ const PlayerInputCard = ({ player, icon, handlePlayerChange }) => {
         id={player}
         className="player-input"
         type="text"
+        placeholder="Enter your name"
         defaultValue={player}
         onBlur={(e) => handlePlayerChange(e, icon)}
       />
